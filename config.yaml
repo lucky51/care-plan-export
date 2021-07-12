@@ -1,0 +1,7 @@
+app: go excel microservice
+# listen port
+port: 3000
+# debug or release
+env: debug
+# cmp 请求地址  http://localhost:62119  http://10.0.7.31:8305/ //http://localhost:62119
+cmpUrl: http://10.0.7.31:8305/

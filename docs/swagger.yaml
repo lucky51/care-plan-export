@@ -1,0 +1,169 @@
+definitions:
+  modals.BasicInfo:
+    properties:
+      age:
+        type: integer
+      bedCode:
+        type: string
+      birthOfDate:
+        type: string
+      careLevel:
+        type: string
+      customerId:
+        type: integer
+      customerName:
+        type: string
+      gender:
+        type: string
+      inCode:
+        type: string
+      inDate:
+        type: string
+      inStartDate:
+        type: string
+      roomCode:
+        type: string
+      sex:
+        type: string
+      startDate:
+        type: string
+      state:
+        type: string
+    type: object
+  modals.OuterInput:
+    properties:
+      basicInfo:
+        $ref: '#/definitions/modals.BasicInfo'
+        type: object
+      items:
+        items:
+          $ref: '#/definitions/modals.OuterItem'
+        type: array
+      sheetName:
+        type: string
+    type: object
+  modals.OuterItem:
+    properties:
+      date1:
+        type: string
+      date2:
+        type: string
+      date3:
+        type: string
+      date4:
+        type: string
+      date5:
+        type: string
+      date6:
+        type: string
+      date7:
+        type: string
+      dayItems:
+        items:
+          $ref: '#/definitions/modals.RecordItem'
+        type: array
+      monthItems:
+        items:
+          $ref: '#/definitions/modals.RecordItem'
+        type: array
+      tempItems:
+        items:
+          $ref: '#/definitions/modals.RecordItem'
+        type: array
+      unItems:
+        items:
+          $ref: '#/definitions/modals.RecordItem'
+        type: array
+      week:
+        type: integer
+      weekItems:
+        items:
+          $ref: '#/definitions/modals.RecordItem'
+        type: array
+      year:
+        type: integer
+    type: object
+  modals.RecordItem:
+    properties:
+      cycleType:
+        type: integer
+      execDate:
+        type: string
+      formatDate:
+        type: string
+      reason:
+        type: string
+      recordType:
+        type: integer
+      serviceName:
+        type: string
+      servicePeriod:
+        type: string
+      serviceState:
+        type: integer
+      signature:
+        type: string
+      strweek:
+        type: string
+      week:
+        type: integer
+      year:
+        type: integer
+    type: object
+info:
+  contact: {}
+  license: {}
+paths:
+  /file:
+    get:
+      description: 输入参数大小写敏感.
+      parameters:
+      - description: 住户ID
+        in: query
+        name: residentId
+        required: true
+        type: integer
+      - description: 租户ID
+        in: query
+        name: tenantId
+        required: true
+        type: integer
+      - description: 开始日期
+        in: query
+        name: startDate
+        required: true
+        type: string
+      - description: 结束日期
+        in: query
+        name: endDate
+        required: true
+        type: string
+      produces:
+      - application/octet-stream
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: 照护执行计划查询并导出excel
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: JSON
+        in: body
+        name: postJson
+        required: true
+        schema:
+          items:
+            $ref: '#/definitions/modals.OuterInput'
+          type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: 照护执行计划excel生成-服务端转发
+swagger: "2.0"

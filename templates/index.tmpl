@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>excel export</title>
+	<style>
+		ul, ul li{
+			list-style: none;padding: 0px ;margin: 0px;
+			height: 300px;
+		}
+		li{
+			display: inline-block;
+			border: 0px solid red;
+			margin-left: 100px;
+		}
+		table ,table td{
+			border: 0px solid #0094ff;
+			border-collapse: collapse;
+		}
+		table{
+			height: 100%;
+		}
+		.connected{
+			color: green;
+			font-size: large;
+		}
+		.closed{
+			color: red;
+			font-size: large;
+		}
+	</style>
+</head>
+<body>
+
+<div style="width: 1000px;margin: 10px auto">
+	<h1>
+		{{ .title }}
+	</h1>
+	<hr />
+	<ul>
+		<li>
+			<img style="height:300px; max-width:100%;" src="/assets/color.png" />
+		</li>
+		<li>
+			<table>
+				<thead>
+					<tr>
+						<th colspan="3">
+							<h2>Viper settings:</h2>
+						</th>
+					</tr>
+				</thead>
+
+				<tr>
+					<th>Environment(env):</th>
+					<td>{{.env}}</td>
+				</tr>
+				<tr>
+					<th>Cmp Base url(cmpUrl): </th>
+					<td>
+						{{.cmpURL}} &nbsp;&nbsp; <strong>(&nbsp;</strong>status: <span class="status {{.status}}"><i><strong>{{.status}}</strong></i>  </span> ,ping at:<span class="status {{.status}}"><i><strong>{{.pingAt}}</strong></i></span><strong> &nbsp;)</strong>
+					</td>
+				</tr>
+				<tr>
+					<th>listening port (port): </th>
+					<td>{{.port}}</td>
+				</tr>
+				<tr>
+					<th>swagger ui </th>
+					<td><a id="swaggerurl" href="javascript:void(0)">swagger/index</a></td>
+				</tr>
+			</table>
+		</li>
+	</ul>
+</div>
+
+
+</body>
+<script>
+	window.document.getElementById("swaggerurl").onclick=function (e){
+		e.preventDefault();
+		let curWwwPath = window.document.location.href;
+		let pathName = window.document.location.pathname;
+		let pos = curWwwPath.indexOf(pathName);
+		let localhostPath = curWwwPath.substring(0, pos);
+
+
+
+		window.location =localhostPath + "/swagger/index.html";
+	};
+</script>
+</html>

@@ -1,0 +1,257 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {},
+        "license": {}
+    },
+    "paths": {
+        "/file": {
+            "get": {
+                "description": "输入参数大小写敏感.",
+                "produces": [
+                    "application/octet-stream"
+                ],
+                "summary": "照护执行计划查询并导出excel",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "住户ID",
+                        "name": "residentId",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "租户ID",
+                        "name": "tenantId",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "开始日期",
+                        "name": "startDate",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "结束日期",
+                        "name": "endDate",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "照护执行计划excel生成-服务端转发",
+                "parameters": [
+                    {
+                        "description": "JSON",
+                        "name": "postJson",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/modals.OuterInput"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "modals.BasicInfo": {
+            "type": "object",
+            "properties": {
+                "age": {
+                    "type": "integer"
+                },
+                "bedCode": {
+                    "type": "string"
+                },
+                "birthOfDate": {
+                    "type": "string"
+                },
+                "careLevel": {
+                    "type": "string"
+                },
+                "customerId": {
+                    "type": "integer"
+                },
+                "customerName": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "string"
+                },
+                "inCode": {
+                    "type": "string"
+                },
+                "inDate": {
+                    "type": "string"
+                },
+                "inStartDate": {
+                    "type": "string"
+                },
+                "roomCode": {
+                    "type": "string"
+                },
+                "sex": {
+                    "type": "string"
+                },
+                "startDate": {
+                    "type": "string"
+                },
+                "state": {
+                    "type": "string"
+                }
+            }
+        },
+        "modals.OuterInput": {
+            "type": "object",
+            "properties": {
+                "basicInfo": {
+                    "type": "object",
+                    "$ref": "#/definitions/modals.BasicInfo"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/modals.OuterItem"
+                    }
+                },
+                "sheetName": {
+                    "type": "string"
+                }
+            }
+        },
+        "modals.OuterItem": {
+            "type": "object",
+            "properties": {
+                "date1": {
+                    "type": "string"
+                },
+                "date2": {
+                    "type": "string"
+                },
+                "date3": {
+                    "type": "string"
+                },
+                "date4": {
+                    "type": "string"
+                },
+                "date5": {
+                    "type": "string"
+                },
+                "date6": {
+                    "type": "string"
+                },
+                "date7": {
+                    "type": "string"
+                },
+                "dayItems": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/modals.RecordItem"
+                    }
+                },
+                "monthItems": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/modals.RecordItem"
+                    }
+                },
+                "tempItems": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/modals.RecordItem"
+                    }
+                },
+                "unItems": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/modals.RecordItem"
+                    }
+                },
+                "week": {
+                    "type": "integer"
+                },
+                "weekItems": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/modals.RecordItem"
+                    }
+                },
+                "year": {
+                    "type": "integer"
+                }
+            }
+        },
+        "modals.RecordItem": {
+            "type": "object",
+            "properties": {
+                "cycleType": {
+                    "type": "integer"
+                },
+                "execDate": {
+                    "type": "string"
+                },
+                "formatDate": {
+                    "type": "string"
+                },
+                "reason": {
+                    "type": "string"
+                },
+                "recordType": {
+                    "type": "integer"
+                },
+                "serviceName": {
+                    "type": "string"
+                },
+                "servicePeriod": {
+                    "type": "string"
+                },
+                "serviceState": {
+                    "type": "integer"
+                },
+                "signature": {
+                    "type": "string"
+                },
+                "strweek": {
+                    "type": "string"
+                },
+                "week": {
+                    "type": "integer"
+                },
+                "year": {
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}
