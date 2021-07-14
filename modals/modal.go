@@ -75,18 +75,25 @@ var firstCarePlanStartTime string = ""
 
 // MapTo 接口数据转换
 func MapTo(outers *[]OuterInput) []xlst.InParam {
-	result := make([]xlst.InParam, len(*outers))
+	i:=0
+	//查询有效的sheet集合，会出现items长度为0的数据
+	arrLen :=From(*outers).CountWithT(func(o OuterInput) bool { return len(o.Items)>0})
+	result := make([]xlst.InParam, arrLen)
 	for key, item := range *outers {
 		if key == 0 {
 			firstCarePlanStartTime = item.BasicInfo.StartDate
 		}
+		if len(item.Items) ==0{
+			continue
+		}
 		tempCtx, _ := item.GetRenderContext()
-		result[key] = xlst.InParam{
+		result[i] = xlst.InParam{
 			In: map[string]interface{}{
 				"outer": tempCtx,
 			},
 			SheetName: item.SheetName,
 		}
+		i =i+1
 	}
 	return result
 }
